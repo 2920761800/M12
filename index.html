@@ -1,230 +1,206 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>HTML5随机图库</title>
-<style>
-*{
-padding:0;
-margin:0;
-}
-body{
-background-image: linear-gradient(to right, #fbc2eb, #a6c1ee);
-background-size:100% 100%;
-background-attachment:fixed;
-}
-.no1{
-width: 90%;
-height: 85%;
-left:0;
-right:0;
-top:0;
-bottom:50px;
-position:absolute;
-background-color:rgba(2,2,2,0.2);
-margin: 140px auto;
-border-style:double;
-border-color:#000;
-border-radius:15px;
-padding:20px;
-box-shadow: 0px 20px 20px rgba(0,0,0,0.9);
-}
-.no2{
-width: 100%;
-height: 85%;
-background-color:rgba(255,255,255,0.1);
-margin:auto;
-border-style:double;
-border-color:white;
-border-radius:15px;
-background-size:100% 100%;
-box-shadow: 5px 5px 5px rgba(255,255,255,0.6);
-object-fit: fill;
-}
-.no3{
-margin:20px auto;
-display: flex;
-}
-.no4 {
-left:1;
-width: 18%;
-background-image: linear-gradient(to right, #3ACFD3, #C2A464);
-margin:auto;
-border-style:double;
-border-color:white;
-border-radius:5px;
-padding:10px;
-text-align:center;
-font-size:25px;
-box-shadow: 0px 15px 15px rgba(255,255,255,0.6);
-/* font-weight: bold;*/
-}
-.no5{
-width: 100%;
-text-align:center;
-margin:30px auto;
-overflow: hidden;
--webkit-line-clamp: 1;
-display: -webkit-box;
--webkit-box-orient: vertical;
-}
-.no6{
-width: 100%;
-background-color:white;
-line-height: 100px;
-border-bottom-style:double;
-box-shadow:0px 10px 10px rgba(2,2,2,0.6);
-}
-.no7{
-width: 100%;
-height: 100px;
-}
-</style>
-</head>
-<body>
-<div class="no6"><h1>&emsp;随机图库</h1></div>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>留言系统</title>
+    <style>
+      /* 样式 */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
 
-<audio id="player" autoplay="autopaly" loop="true">
-<!--音乐地址-->
-<source  id="player1" src="../music/1.mp3"></source>
-</audio>
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
 
-<div class="no1">
-<!--如果修改成接口调用的这些的地址全都要修改成你的接口-->
-<!--图片地址-->
-<img style="display:block" onclick="tc()" id="pic" src="../picture/1.png" target="_blank" class="no2"/>
+      h1 {
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 20px;
+      }
 
-<!--仅支持HTML5-->
-<!--视频地址-->
-<video style="display:none" id="spbf" class="no2" controls="controls" autoplay="autopaly">
-  <source src="../video/1.mp4" type="video/mp4" />
-</video>
+      form {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+      }
 
-<!--
-如果不是HTML5请使用以下
-注：这个没写完
--->
-<!--
-<video class="no2" controls="controls">
-  <source src="../video/1.mp4" type="video/mp4" />
-  <object data="../video/1.mp4" class="no2">
-    <embed src="../video/1.mp4" class="no2"/>
-  </object>
-</video>
--->
+      label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 10px;
+      }
 
-<div class="no3">
-<p class="no4" style="cursor: pointer;" id="start" onclick="a()">播放音乐</p>
+      input[type="text"],
+      textarea {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 20px;
+        font-size: 1rem;
+      }
 
-<p class="no4" style="display:block" type="button" value="修改" id="btn" >下张图片</p>
-<p class="no4" style="display:block" onclick="qh()" id="spqh" >切换视频</p>
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
 
-<p class="no4" style="cursor: pointer;" id="stop" >关闭音乐</p>
-</div>
-<marquee class="no5">Founder of nameless handed down Pavilion.Founder of nameless handed down Pavilion.Founder of nameless handed down Pavilion.Founder of nameless handed down Pavilion.Founder of nameless handed down Pavilion.Founder of nameless handed down Pavilion.Founder of nameless handed down Pavilion</marquee></div>
-</body>
-<script type='text/javascript'>
-//图片本地调用信息
-var pictureurl = "../picture/"; //图片储存的地址
-var picture0 = 1; //初始图片ID 
-var picture1 = 10; //图片最后的ID
-var picture = ".png"; //图片后缀
-//音乐本地调用信息
-var musicurl = "../music/"; //音乐储存的地址
-var music0 = 1; //初始音乐ID 
-var music1 = 3; //音乐最后的ID
-var music = ".mp3"; //音乐后缀
-//视频本地调用信息
-var videourl = "../video/"; //视频储存的地址
-var video0 = 1; //初始视频ID 
-var video1 = 5; //视频最后的ID
-var video = ".mp4"; //视频后缀
+      input[type="submit"] {
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+      
+      input[type="submit"]:hover {
+        background-color: #3e8e41;
+      }
 
-//隐藏
-function show_hidden(obj) {
-if(obj.style.display == 'block') {
-obj.style.display = 'none';
-} else {
-obj.style.display = 'block';
-} }
+      select {
+        display: block;
+        width: 100%;
+        padding: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+      }
+      
+      .messages {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
 
-//图片自动赋值
-document.getElementById("pic").src= pictureurl + Math.floor(Math.random()*picture1+picture0) + picture;
+      .message {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 10px;
+        margin-bottom: 20px;
+      }
 
-//图片与视频控制
-document.getElementById("btn").onclick = function(){
-var tpsp=document.getElementById("btn").innerHTML;
-if(tpsp=="下张图片"){
+      .message__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
 
-/*
-//本地图片调用
-document.getElementById("pic").src= pictureurl + Math.floor(Math.random()*picture1+picture0) + picture;
-*/
+      .message__author {
+        font-weight: bold;
+      }
 
-//如果用这个记得把上面那个本地图片调用的给注释掉，像这个就是被注释了的，还有那个图片自动赋值的也要注释了，最上面的那个视频地址也要修改成你的接口(2个地方注释，1个地方链接修改成你自己的
-var picturephp="http://lx.linxi.icu/API/meitui.php#"; //调用的接口，记得填写成自己的是(接口类型是URL的才能用
-document.getElementById("pic").src= picturephp +"?" + Math.random();
+      .message__date {
+        font-size: 0.8rem;
+        color: #777;
+      }
 
-} else if(tpsp=="下个视频"){
-var myVideo=document.getElementById("spbf");
-myVideo.play();
+      .message__content {
+        font-size: 1rem;
+        white-space: pre-wrap;
+      }      
+    </style>
+  </head>
 
-/*
-//本地视频调用
-document.getElementById("spbf").src= videourl + Math.floor(Math.random()*video1+video0) + video;
-*/
+  <body>
+    <div class="container">
+      <h1>留言系统</h1>
+      <!-- 留言表单 -->
+      <form id="message-form">
+        <label for="name">姓名：</label>
+        <input type="text" id="name" name="name" required />
+        <label for="email">邮箱：</label>
+        <input type="text" id="email" name="email" required />
+        <label for="message">留言：</label>
+        <textarea id="message" name="message" required></textarea>
+        <label for="emoji">表情：</label>
+      <select id="emoji" name="emoji">
+      <option value="🙂">🙂开心</option>
+      <option value="😭">😭伤心</option>
+      <option value="😡">😡生气</option>
+      <option value="🥱">🥱困倦</option>
+    </select>
+        <input type="submit" value="提交" />
+      </form>
+      <!-- 留言列表 -->
+      <ul id="messages" class="messages"></ul>
+    </div>
 
-//视频接口调用
-//如果用这个记得把上面那个本地视频调用的给注释掉，像这个就是被注释了的，还有就是最上面的那个视频地址也要修改成你的接口(2个地方注释，1个地方链接修改成你自己的
-var videophp="https://api.woeo.net/API/api-girl/index.php?type=mp4#"; //调用的接口，记得填写成自己的是(接口类型是URL的才能用
-document.getElementById("spbf").src= videophp +"?" + Math.random();
+    <!-- JavaScript代码 -->
+    <script>
+      // 获取表单和留言列表元素
+      const form = document.querySelector("#message-form");
+      
+      const messagesList = document.querySelector("#messages");
+      
+      // 当表单被提交时，执行添加留言的函数
+      form.addEventListener("submit", (event) => {
+        // 阻止表单默认的提交行为
+        event.preventDefault();
 
-} }
-//音乐控制
-document.getElementById('start').onclick = function(){
-var yykz=document.getElementById("start").innerHTML;
-if(yykz=="播放音乐"){
-document.getElementById("player").src= musicurl + Math.floor(Math.random()*music1+music0) + music;
-document.getElementById("start").innerHTML ="下一首";
-player.play();
-} else {
-document.getElementById("player").src= musicurl + Math.floor(Math.random()*music1+music0) + music;
-} }
-document.getElementById('stop').onclick = function(){
-player.pause();
-}
-function tc(){
-window.alert("卡哇伊捏⊙ω⊙");
-}
+        // 获取表单字段的值
+        const name = form.elements.name.value;
+        const email = form.elements.email.value;
+        const message = form.elements.message.value;
+        const emoji = form.elements.emoji.value;
+        // 创建一个新的留言对象
+        const newMessage = {
+          name,
+          email,
+          message,
+          emoji,
+          date: new Date(),
+        };
 
-//视频图片切换
-document.getElementById("spqh").onclick = function(){
-var yykz1=document.getElementById("spqh").innerHTML;
-if(yykz1=="切换视频") {
-document.getElementById("spqh").innerHTML ="切换图片";
-document.getElementById("btn").innerHTML ="下个视频";
+        // 将留言对象添加到留言列表中
+        addMessageToDOM(newMessage);
 
-/*
-//本地视频调用
-//如果用接口调用的话这个也要注释
-document.getElementById("spbf").src= videourl + Math.floor(Math.random()*video1+video0) + video;
-*/
+        // 重置表单字段
+        form.reset();
+      });
 
-var div1 = document.getElementById("pic");
-var div3 = document.getElementById("spbf");
-show_hidden(div1);
-show_hidden(div3);
-return false;
-} else if(yykz1=="切换图片") {
-document.getElementById("spqh").innerHTML ="切换视频";
-document.getElementById("btn").innerHTML ="下张图片";
-var myVideo=document.getElementById("spbf");
-myVideo.pause();
-var div1 = document.getElementById("pic");
-var div3 = document.getElementById("spbf");
-show_hidden(div1);
-show_hidden(div3);
-return false;
-} }
-</script>
+      // 添加留言到DOM中
+      function addMessageToDOM(message) {
+        const li = document.createElement("li");
+        li.classList.add("message");
+
+        // 留言头部（作者和日期）
+        const header = document.createElement("div");
+        header.classList.add("message__header");
+
+        const author = document.createElement("span");
+        author.classList.add("message__author");
+        author.textContent = message.name;
+
+        const date = document.createElement("span");
+        date.classList.add("message__date");
+        date.textContent = message.date.toLocaleString();
+
+        header.appendChild(author);
+        header.appendChild(date);
+        
+        // 留言内容
+        const content = document.createElement("div");
+        content.classList.add("message__content");
+        content.textContent = message.message;
+        
+        //添加表情
+        const emojiSpan = document.createElement('span');
+        emojiSpan.classList.add("message__emoji");
+        emojiSpan.textContent = message.emoji;
+        
+        li.appendChild(header);
+        li.appendChild(content);
+        li.appendChild(emojiSpan);
+        messagesList.appendChild(li);
+      }
+    </script>
+  </body>
 </html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>HTML5随机图库</title>
+<style>
+*{
+padding:0;
+margin:0;
+}
+body{
+background-image: linear-gradient(to right, #fbc2eb, #a6c1ee);
+background-size:100% 100%;
+background-attachment:fixed;
+}
+.no1{
+width: 90%;
+height: 85%;
+left:0;
+right:0;
+top:0;
+bottom:50px;
+position:absolute;
+background-color:rgba(2,2,2,0.2);
+margin: 140px auto;
+border-style:double;
+border-color:#000;
+border-radius:15px;
+padding:20px;
+box-shadow: 0px 20px 20px rgba(0,0,0,0.9);
+}
+.no2{
+width: 100%;
+height: 85%;
+background-color:rgba(255,255,255,0.1);
+margin:auto;
+border-style:double;
+border-color:white;
+border-radius:15px;
+background-size:100% 100%;
+box-shadow: 5px 5px 5px rgba(255,255,255,0.6);
+object-fit: fill;
+}
+.no3{
+margin:20px auto;
+display: flex;
+}
+.no4 {
+left:1;
+width: 18%;
+background-image: linear-gradient(to right, #3ACFD3, #C2A464);
+margin:auto;
+border-style:double;
+border-color:white;
+border-radius:5px;
+padding:10px;
+text-align:center;
+font-size:25px;
+box-shadow: 0px 15px 15px rgba(255,255,255,0.6);
+/* font-weight: bold;*/
+}
+.no5{
+width: 100%;
+text-align:center;
+margin:30px auto;
+overflow: hidden;
+-webkit-line-clamp: 1;
+display: -webkit-box;
+-webkit-box-orient: vertical;
+}
+.no6{
+width: 100%;
+background-color:white;
+line-height: 100px;
+border-bottom-style:double;
+box-shadow:0px 10px 10px rgba(2,2,2,0.6);
+}
+.no7{
+width: 100%;
+height: 100px;
+}
+</style>
+</head>
+<body>
+<div class="no6"><h1>&emsp;随机图库</h1></div>
+
+<audio id="player" autoplay="autopaly" loop="true">
+<!--音乐地址-->
+<source  id="player1" src="../music/1.mp3"></source>
+</audio>
+
+<div class="no1">
+<!--如果修改成接口调用的这些的地址全都要修改成你的接口-->
+<!--图片地址-->
+<img style="display:block" onclick="tc()" id="pic" src="../picture/1.png" target="_blank" class="no2"/>
+
+<!--仅支持HTML5-->
+<!--视频地址-->
+<video style="display:none" id="spbf" class="no2" controls="controls" autoplay="autopaly">
+  <source src="../video/1.mp4" type="video/mp4" />
+</video>
+
+<!--
+如果不是HTML5请使用以下
+注：这个没写完
+-->
+<!--
+<video class="no2" controls="controls">
+  <source src="../video/1.mp4" type="video/mp4" />
+  <object data="../video/1.mp4" class="no2">
+    <embed src="../video/1.mp4" class="no2"/>
+  </object>
+</video>
+-->
+
+<div class="no3">
+<p class="no4" style="cursor: pointer;" id="start" onclick="a()">播放音乐</p>
+
+<p class="no4" style="display:block" type="button" value="修改" id="btn" >下张图片</p>
+<p class="no4" style="display:block" onclick="qh()" id="spqh" >切换视频</p>
+
+<p class="no4" style="cursor: pointer;" id="stop" >关闭音乐</p>
+</div>
+<marquee class="no5">Founder of nameless handed down Pavilion.Founder of nameless handed down Pavilion.Founder of nameless handed down Pavilion.Founder of nameless handed down Pavilion.Founder of nameless handed down Pavilion.Founder of nameless handed down Pavilion.Founder of nameless handed down Pavilion</marquee></div>
+</body>
+<script type='text/javascript'>
+//图片本地调用信息
+var pictureurl = "../picture/"; //图片储存的地址
+var picture0 = 1; //初始图片ID 
+var picture1 = 10; //图片最后的ID
+var picture = ".png"; //图片后缀
+//音乐本地调用信息
+var musicurl = "../music/"; //音乐储存的地址
+var music0 = 1; //初始音乐ID 
+var music1 = 3; //音乐最后的ID
+var music = ".mp3"; //音乐后缀
+//视频本地调用信息
+var videourl = "../video/"; //视频储存的地址
+var video0 = 1; //初始视频ID 
+var video1 = 5; //视频最后的ID
+var video = ".mp4"; //视频后缀
+
+//隐藏
+function show_hidden(obj) {
+if(obj.style.display == 'block') {
+obj.style.display = 'none';
+} else {
+obj.style.display = 'block';
+} }
+
+//图片自动赋值
+document.getElementById("pic").src= pictureurl + Math.floor(Math.random()*picture1+picture0) + picture;
+
+//图片与视频控制
+document.getElementById("btn").onclick = function(){
+var tpsp=document.getElementById("btn").innerHTML;
+if(tpsp=="下张图片"){
+
+/*
+//本地图片调用
+document.getElementById("pic").src= pictureurl + Math.floor(Math.random()*picture1+picture0) + picture;
+*/
+
+//如果用这个记得把上面那个本地图片调用的给注释掉，像这个就是被注释了的，还有那个图片自动赋值的也要注释了，最上面的那个视频地址也要修改成你的接口(2个地方注释，1个地方链接修改成你自己的
+var picturephp="http://lx.linxi.icu/API/meitui.php"; //调用的接口，记得填写成自己的是(接口类型是URL的才能用
+document.getElementById("pic").src= picturephp +"?" + Math.random();
+
+} else if(tpsp=="下个视频"){
+var myVideo=document.getElementById("spbf");
+myVideo.play();
+
+/*
+//本地视频调用
+document.getElementById("spbf").src= videourl + Math.floor(Math.random()*video1+video0) + video;
+*/
+
+//视频接口调用
+//如果用这个记得把上面那个本地视频调用的给注释掉，像这个就是被注释了的，还有就是最上面的那个视频地址也要修改成你的接口(2个地方注释，1个地方链接修改成你自己的
+var videophp="https://api.woeo.net/API/api-girl/index.php?type=mp4"; //调用的接口，记得填写成自己的是(接口类型是URL的才能用
+document.getElementById("spbf").src= videophp +"?" + Math.random();
+
+} }
+//音乐控制
+document.getElementById('start').onclick = function(){
+var yykz=document.getElementById("start").innerHTML;
+if(yykz=="播放音乐"){
+document.getElementById("player").src= musicurl + Math.floor(Math.random()*music1+music0) + music;
+document.getElementById("start").innerHTML ="下一首";
+player.play();
+} else {
+document.getElementById("player").src= musicurl + Math.floor(Math.random()*music1+music0) + music;
+} }
+document.getElementById('stop').onclick = function(){
+player.pause();
+}
+function tc(){
+window.alert("卡哇伊捏⊙ω⊙");
+}
+
+//视频图片切换
+document.getElementById("spqh").onclick = function(){
+var yykz1=document.getElementById("spqh").innerHTML;
+if(yykz1=="切换视频") {
+document.getElementById("spqh").innerHTML ="切换图片";
+document.getElementById("btn").innerHTML ="下个视频";
+
+/*
+//本地视频调用
+//如果用接口调用的话这个也要注释
+document.getElementById("spbf").src= videourl + Math.floor(Math.random()*video1+video0) + video;
+*/
+
+var div1 = document.getElementById("pic");
+var div3 = document.getElementById("spbf");
+show_hidden(div1);
+show_hidden(div3);
+return false;
+} else if(yykz1=="切换图片") {
+document.getElementById("spqh").innerHTML ="切换视频";
+document.getElementById("btn").innerHTML ="下张图片";
+var myVideo=document.getElementById("spbf");
+myVideo.pause();
+var div1 = document.getElementById("pic");
+var div3 = document.getElementById("spbf");
+show_hidden(div1);
+show_hidden(div3);
+return false;
+} }
+</script>
+</html>
